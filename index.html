@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr-FR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-    <meta name="theme-color" content="#1b1838" />
-    <title>PokéMatch</title>
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="theme-color" content="#10152f" />
+    <meta name="description" content="PokéMatch — le puzzle de mémoire avec les 1 025 Pokémon." />
+    <title>PokéMatch · Attrape-les toutes</title>
+    <link rel="icon" type="image/png" href="./assets/share/favicon.png" />
     <link rel="preload" href="./fonts/ManusCC0-Bold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="./fonts/ManusCC0-Regular.ttf" as="font" type="font/ttf" crossorigin />
   </head>
   <body>
-    <canvas id="game"></canvas>
+    <canvas id="game" aria-hidden="true"></canvas>
     <div id="ui"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
