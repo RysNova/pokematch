@@ -89,8 +89,12 @@ function pickCards(): Card[] {
 }
 function formatTime(seconds: number): string { const s = Math.floor(seconds); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}` }
 function updateStats(): void { document.querySelector('#score')!.textContent = score.toLocaleString('fr-FR'); document.querySelector('#moves')!.textContent = String(moves); document.querySelector('#streak')!.textContent = String(streak); document.querySelector('#time')!.textContent = formatTime((Date.now() - startedAt) / 1000) }
-function cardMarkup(card: Card, index: number): string { const visible = card.revealed || card.matched; return `<button class="memory-card ${visible ? 'is-visible' : ''} ${card.matched ? 'is-matched' : ''}" data-index="${index}" aria-label="Carte ${index + 1}"><span class="card-face card-back"><i>?</i><small>POKÉDEX</small></span><span class="card-face card-front"><span class="number">#${String(card.id).padStart(4, '0')}</span><img src="${pokemonSprite(card.id)}" alt="${pokemonName(card.id)}" loading="lazy" /><b>${pokemonName(card.id)}</b></span></button>` }
-function renderBoard(): void { board.style.setProperty('--cols', String(difficulty().cols)); board.innerHTML = cards.map(cardMarkup).join(''); board.querySelectorAll<HTMLButtonElement>('.memory-card').forEach(button => button.addEventListener('click', () => flip(Number(button.dataset.index)))) }
+function cardMarkup(card: Card, index: number): string { const visible = card.revealed || card.matched; return `<button class="memory-card ${visible ? 'is-visible' : ''} ${card.matched ? 'is-matched' : ''}" data-index="${index}" aria-label="Carte ${index + 1}"><span class="card-face card-back"><i>?</i><small>POKÉDEX</small></span><span class="card-face card-front"><span class="number">#${String(card.id).padStart(4, '0')}</span><img src="${pokemonSprite(card.id)}" alt="${pokemonName(card.id)}" loading="lazy" /><span class="image-fallback" aria-hidden="true">✦</span><b>${pokemonName(card.id)}</b></span></button>` }
+function renderBoard(): void {
+  board.style.setProperty('--cols', String(difficulty().cols)); board.innerHTML = cards.map(cardMarkup).join('')
+  board.querySelectorAll<HTMLImageElement>('.card-front img').forEach(image => image.addEventListener('error', () => { image.hidden = true; image.nextElementSibling?.classList.add('is-visible') }, { once: true }))
+  board.querySelectorAll<HTMLButtonElement>('.memory-card').forEach(button => button.addEventListener('click', () => flip(Number(button.dataset.index))))
+}
 function startRound(next = false): void {
   if (next) currentDifficulty = Math.min(currentDifficulty + 1, difficulties.length - 1)
   roundToken += 1; first = null; locked = false; moves = 0; score = 0; matched = 0; startedAt = Date.now(); cards = pickCards();
