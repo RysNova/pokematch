@@ -95,7 +95,9 @@ function startRound(next = false): void {
   if (next) currentDifficulty = Math.min(currentDifficulty + 1, difficulties.length - 1)
   roundToken += 1; first = null; locked = false; moves = 0; score = 0; matched = 0; startedAt = Date.now(); cards = pickCards();
   home.classList.add('is-hidden'); result.classList.add('is-hidden'); gameScreen.classList.remove('is-hidden');
-  document.querySelector('#difficulty-label')!.textContent = difficulty().label; document.querySelector('#round-label')!.textContent = `MANCHE ${String(currentDifficulty + 1).padStart(2, '0')}`; renderBoard(); updateStats()
+  document.querySelector('#difficulty-label')!.textContent = difficulty().label; document.querySelector('#round-label')!.textContent = `MANCHE ${String(currentDifficulty + 1).padStart(2, '0')}`
+  document.querySelector('.board-top .eyebrow')!.textContent = `POKÉDEX / COLLECTION ${selectedGeneration ? GENERATIONS[selectedGeneration - 1].label.toUpperCase() : 'COMPLÈTE'}`
+  renderBoard(); updateStats()
 }
 function flip(index: number): void {
   if (locked || cards[index].matched || cards[index].revealed) return
