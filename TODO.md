@@ -11,7 +11,7 @@
 - [ ] Fournir les actions Rejouer et Mélanger.
 - [ ] Présenter des états de victoire et de défaite élégants.
 
-## Présentation et intégrations approuvées
+## Présentation et intégrations gratuites
 - [ ] Interface en français avec direction jaune électrique et bleu nuit, animations courtes de retournement et célébration.
-- [ ] Conserver les choix Blueprint approuvés pour compte Manus, classement partagé et Stripe.
+- [ ] Garder le jeu gratuit : aucun achat, abonnement, checkout ou écran de paiement.
 - [ ] Remplacer l’identité Sky Cores du starter par PokéMatch.

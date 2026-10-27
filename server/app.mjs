@@ -12,9 +12,8 @@ export function createGameApp(gameRouter, { leaderboard } = {}) {
     res.json(publicPlatformConfig())
   })
   registerOAuthRoutes(app)
-  // Browser mutations use Webdev's JSON tRPC transport. Do not enable CORS or
-  // accept form/text bodies: cross-origin forms must not create a Checkout or
-  // mutate a player's save using the SameSite=None session cookie.
+  // Browser mutations use Webdev's JSON tRPC transport. Keep requests same-origin
+  // and JSON-only while the game remains free and account-safe.
   app.use('/api/trpc', (req, res, next) => {
     res.setHeader('Cache-Control', 'no-store')
     if (req.method === 'POST' && !req.is('application/json')) {
@@ -26,7 +25,5 @@ export function createGameApp(gameRouter, { leaderboard } = {}) {
     router: router({ webdev: webdevRouter, game: gameRouter }),
     createContext,
   }))
-  // Stripe webhooks belong outside /api/trpc. Register the application's
-  // signature-verified raw-body handler before any JSON body parser.
   return app
 }
